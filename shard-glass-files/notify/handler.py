@@ -83,7 +83,9 @@ class NotifyHandler(webapp2.RequestHandler):
         logging.info(str(item_id))
         attachments = self.mirror_service.timeline().get(id=item_id).execute().get('attachments')
         logging.info(str(attachments))
-        
+        url = attachments[0].get('contentUrl')
+        logging.info("URL?")
+        logging.info(url)
 
 
         # Patch the item. Notice that since we retrieved the entire item above
