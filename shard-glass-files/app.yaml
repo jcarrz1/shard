@@ -7,13 +7,27 @@ threadsafe: true
 handlers:
 - url: /static
   static_dir: static
-  secure: always
+  secure: alway
 
 - url: /.*
   script: main.app
   secure: always
-  static_dir: static_files
 
+# re-direct to index.html if no path is give
+- url: /
+  static_files: index.html
+  upload: index.html
+
+# access the static resources in the root director
+
+- url: /(.*)
+  static_files: \1
+  upload: (.*)
+
+"""
+- url: /
+  static_dir: static_files
+"""
 
 libraries:
 - name: jinja2
