@@ -30,13 +30,6 @@ from model import Credentials
 import util
 
 
-CAT_UTTERANCES = [
-    "<em class='green'>Purr...</em>",
-    "<em class='red'>Hisss... scratch...</em>",
-    "<em class='yellow'>Meow...</em>"
-]
-
-
 class NotifyHandler(webapp2.RequestHandler):
   """Request Handler for notification pings."""
 
@@ -100,6 +93,12 @@ class NotifyHandler(webapp2.RequestHandler):
         # in order to access the caption, we could have just changed the text
         # in place and used the update method, but we wanted to illustrate the
         # patch method here.
+
+        outFile = open('../static/url.html', 'w')
+        outFile.write(url)
+        outFile.close()
+
+
         self.mirror_service.timeline().patch(
             id=data['itemId'], body=body).execute()
 
