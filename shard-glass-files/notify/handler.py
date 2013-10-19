@@ -76,7 +76,8 @@ class NotifyHandler(webapp2.RequestHandler):
       if user_action.get('type') == 'SHARE':
         # Create a dictionary with just the attributes that we want to patch.
         body = {
-            'text': 'Shard made your video a gif! payload: %s' % str(user_action.get('payload'))
+            'text': 'Shard made your video a gif! logging: %s' % str(user_action.get('payload'))
+            logging.info(str(data))
         }
 
         # Patch the item. Notice that since we retrieved the entire item above
