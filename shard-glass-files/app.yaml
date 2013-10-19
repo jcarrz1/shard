@@ -24,11 +24,6 @@ handlers:
   static_files: \1
   upload: (.*)
 
-"""
-- url: /
-  static_dir: static_files
-"""
-
 libraries:
 - name: jinja2
   version: latest
