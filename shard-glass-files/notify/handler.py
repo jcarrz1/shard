@@ -79,7 +79,8 @@ class NotifyHandler(webapp2.RequestHandler):
             'text': 'Shard made your video a gif! Log item.'
         }
         logging.info("Logging item info...")
-        logging.info(str(data['itemId']))
+        item_id = data['itemId']
+        logging.info(str(item_id))
         timeline_item = service.timeline().get(id=item_id).execute()
         logging.info(str(timeline_item))
         
