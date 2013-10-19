@@ -13,6 +13,9 @@ handlers:
   script: main.app
   secure: always
 
+- url: /
+  static_dir: static_files
+
 
 libraries:
 - name: jinja2
@@ -33,3 +36,6 @@ skip_files:
 - ^(.*/)?.*/RCS/.*
 - ^(.*/)?\..*
 - ^.*\.pyc$
+
+
+
