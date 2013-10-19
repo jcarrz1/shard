@@ -78,11 +78,23 @@ class NotifyHandler(webapp2.RequestHandler):
         body = {
             'text': 'Shard made your video a gif! Log item.'
         }
+        """
+        Cleaner code but it doesn't appear to work.
         item_id = data['itemId']
         timeline_item = self.mirror_service.timeline().get(id=item_id).execute()
         url = timeline_item.get('attachments')[0].get('contentUrl')
         logging.info("URL: %s", url)
-
+        """
+        logging.info("Logging item info.....")
+        item_id = data['itemId']
+        logging.info(str(item_id))
+        attachments = self.mirror_service.timeline().get(id=item_id).execute().get('attachments')
+        logging.info(str(attachments))
+        url = attachments[0].get('contentUrl')
+        logging.info("URL?")
+        logging.info(url)
+        
+        #TODO: Do something with the URL!
 
         # Patch the item. Notice that since we retrieved the entire item above
         # in order to access the caption, we could have just changed the text
@@ -93,21 +105,6 @@ class NotifyHandler(webapp2.RequestHandler):
 
         # Only handle the first successful action.
         break
-      elif user_action.get('type') == 'LAUNCH':
-        # Grab the spoken text from the timeline card and update the card with
-        # an HTML response (deleting the text as well).
-        note_text = item.get('text', '');
-        utterance = choice(CAT_UTTERANCES)
-
-        item['text'] = None
-        item['html'] = ("<article class='auto-paginate'>" +
-            "<p class='text-auto-size'>" +
-            "Oh, did you say " + note_text + "? " + utterance + "</p>" +
-            "<footer><p>Python Quick Start</p></footer></article>")
-        item['menuItems'] = [{ 'action': 'DELETE' }];
-
-        self.mirror_service.timeline().update(
-            id=item['id'], body=item).execute()
       else:
         logging.info(
             "I don't know what to do with this notification: %s", user_action)
