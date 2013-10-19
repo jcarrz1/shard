@@ -76,7 +76,7 @@ class NotifyHandler(webapp2.RequestHandler):
       if user_action.get('type') == 'SHARE':
         # Create a dictionary with just the attributes that we want to patch.
         body = {
-            'text': 'Python Quick Start got your photo! %s' % item.get('text', '')
+            'text': 'Shard made your video a gif! URL: %s' % str(user_action.get('canonicalUrl'))
         }
 
         # Patch the item. Notice that since we retrieved the entire item above
