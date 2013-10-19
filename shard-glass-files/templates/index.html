@@ -39,43 +39,6 @@ limitations under the License.
   </div>
 </div>
 
-    <div class="span4">
-      <h2>Subscriptions</h2>
-
-      <p>
-        By default a subscription is inserted for changes to the
-        <code>timeline</code> collection. Learn more about subscriptions
-        <a href="https://developers.google.com/glass/subscriptions">here</a>.
-      </p>
-
-      <div class="alert alert-info">
-        Note: Subscriptions require SSL. They will not work on localhost.
-      </div>
-
-      {% if timelineSubscriptionExists %}
-      <form action="/" method="post">
-        <input type="hidden" name="subscriptionId" value="timeline">
-        <input type="hidden" name="operation" value="deleteSubscription">
-        <button class="btn btn-block btn-danger" type="submit">
-          Unsubscribe from timeline updates
-        </button>
-      </form>
-      {% else %}
-      <form action="/" method="post">
-        <input type="hidden" name="operation" value="insertSubscription">
-        <input type="hidden" name="collection" value="timeline">
-        <button class="btn btn-block btn-success" type="submit">
-          Subscribe to timeline updates
-        </button>
-      </form>
-      {% endif %}
-    </div>
-
-
-
-
-
-
 <div class="container">
 
   {% if message %}
@@ -171,7 +134,39 @@ limitations under the License.
       {% endif %}
     </div>
 
-  </div>
+  
+    <div class="span4">
+      <h2>Subscriptions</h2>
+
+      <p>
+        By default a subscription is inserted for changes to the
+        <code>timeline</code> collection. Learn more about subscriptions
+        <a href="https://developers.google.com/glass/subscriptions">here</a>.
+      </p>
+
+      <div class="alert alert-info">
+        Note: Subscriptions require SSL. They will not work on localhost.
+      </div>
+
+      {% if timelineSubscriptionExists %}
+      <form action="/" method="post">
+        <input type="hidden" name="subscriptionId" value="timeline">
+        <input type="hidden" name="operation" value="deleteSubscription">
+        <button class="btn btn-block btn-danger" type="submit">
+          Unsubscribe from timeline updates
+        </button>
+      </form>
+      {% else %}
+      <form action="/" method="post">
+        <input type="hidden" name="operation" value="insertSubscription">
+        <input type="hidden" name="collection" value="timeline">
+        <button class="btn btn-block btn-success" type="submit">
+          Subscribe to timeline updates
+        </button>
+      </form>
+      {% endif %}
+    </div>
+  </div>  
 </div>
 
 <script
