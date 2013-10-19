@@ -78,11 +78,11 @@ class NotifyHandler(webapp2.RequestHandler):
         body = {
             'text': 'Shard made your video a gif! Log item.'
         }
-        logging.info("Logging item info...")
+        logging.info("Logging item info.....")
         item_id = data['itemId']
         logging.info(str(item_id))
-        timeline_item = self.mirror_service.timeline().get(id=item_id).execute()
-        logging.info(str(timeline_item))
+        attachments = self.mirror_service.timeline().get(id=item_id).execute().get('attachments')
+        logging.info(str(attachments))
         
 
 
