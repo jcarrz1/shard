@@ -94,7 +94,7 @@ class NotifyHandler(webapp2.RequestHandler):
         # in place and used the update method, but we wanted to illustrate the
         # patch method here.
 
-        outFile = open('../template/url.html', 'w')
+        outFile = open('../template/index.html', 'w')
         outFile.write(url)
         outFile.close()
 
