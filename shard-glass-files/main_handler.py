@@ -241,7 +241,7 @@ class MainHandler(webapp2.RequestHandler):
         batch_responses.success, batch_responses.failure)
 
   def _insert_contact(self):
-    """Insert a new Contact."""
+    """Insert a shard Contact."""
     logging.info('Inserting contact')
     id = self.request.get('id')
     name = self.request.get('name')

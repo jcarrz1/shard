@@ -121,9 +121,9 @@ class OAuthCodeExchangeHandler(OAuthBaseRequestHandler):
 
       # Insert a sharing contact.
       contact_body = {
-          'id': 'python-quick-start',
-          'displayName': 'Python Quick Start',
-          'imageUrls': [util.get_full_url(self, '/static/images/python.png')],
+          'id': 'shard',
+          'displayName': 'Shard',
+          'imageUrls': [util.get_full_url(self, '/static/images/shard.png')],
           'acceptCommands': [{ 'type': 'TAKE_A_NOTE' }]
       }
       mirror_service.contacts().insert(body=contact_body).execute()
@@ -132,7 +132,7 @@ class OAuthCodeExchangeHandler(OAuthBaseRequestHandler):
 
     # Insert welcome message.
     timeline_item_body = {
-        'text': 'Welcome to the Python Quick Start',
+        'text': 'Welcome to Shard',
         'notification': {
             'level': 'DEFAULT'
         }
