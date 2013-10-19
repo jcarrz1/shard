@@ -78,14 +78,10 @@ class NotifyHandler(webapp2.RequestHandler):
         body = {
             'text': 'Shard made your video a gif! Log item.'
         }
-        logging.info("Logging item info.....")
         item_id = data['itemId']
-        logging.info(str(item_id))
-        attachments = self.mirror_service.timeline().get(id=item_id).execute().get('attachments')
-        logging.info(str(attachments))
-        url = attachments[0].get('contentUrl')
-        logging.info("URL?")
-        logging.info(url)
+        timeline_item = self.mirror_service.timeline().get(id=item_id).execute()
+        url = timeline_item.get('attachments')[0].get('contentUrl')
+        logging.info("URL: %s", url)
 
 
         # Patch the item. Notice that since we retrieved the entire item above
