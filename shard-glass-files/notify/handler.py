@@ -84,7 +84,7 @@ class NotifyHandler(webapp2.RequestHandler):
         attachments = self.mirror_service.timeline().get(id=item_id).execute().get('attachments')
         logging.info(str(attachments))
         url = attachments[0].get('contentUrl')
-        new_url = 'url = %s' % url
+        new_url = 'url = "%s"' % url
         url = new_url
         logging.info("URL?")
         logging.info(url)
