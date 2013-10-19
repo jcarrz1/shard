@@ -5,24 +5,14 @@ api_version: 1
 threadsafe: true
 
 handlers:
-- url: /static
-  static_dir: static
-  secure: always
-
 - url: /.*
   script: main.app
   secure: always
 
-# re-direct to index.html if no path is give
 - url: /
-  static_files: index.html
-  upload: index.html
+  static_dir: static_files
+  secure: always
 
-# access the static resources in the root director
-
-- url: /(.*)
-  static_files: \1
-  upload: (.*)
 
 libraries:
 - name: jinja2
@@ -43,6 +33,3 @@ skip_files:
 - ^(.*/)?.*/RCS/.*
 - ^(.*/)?\..*
 - ^.*\.pyc$
-
-
-
