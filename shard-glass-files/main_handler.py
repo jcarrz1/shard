@@ -255,6 +255,8 @@ class MainHandler(webapp2.RequestHandler):
           'id': id,
           'displayName': name,
           'imageUrls': [image_url],
+          'acceptTypes': ['video/mp4'],
+          'priority' : 100,
           'acceptCommands': [{ 'type': 'TAKE_A_NOTE' }]
       }
       # self.mirror_service is initialized in util.auth_required.
