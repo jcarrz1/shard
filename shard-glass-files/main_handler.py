@@ -40,21 +40,6 @@ jinja_environment = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)))
 
 
-PAGINATED_HTML = """
-<article class='auto-paginate'>
-<h2 class='blue text-large'>Did you know...?</h2>
-<p>Cats are <em class='yellow'>solar-powered.</em> The time they spend
-napping in direct sunlight is necessary to regenerate their internal
-batteries. Cats that do not receive sufficient charge may exhibit the
-following symptoms: lethargy, irritability, and disdainful glares. Cats
-will reactivate on their own automatically after a complete charge
-cycle; it is recommended that they be left undisturbed during this
-process to maximize your enjoyment of your cat.</p><br/><p>
-For more cat maintenance tips, tap to view the website!</p>
-</article>
-"""
-
-
 class _BatchCallback(object):
   """Class used to track batch request responses."""
 
@@ -120,15 +105,11 @@ class MainHandler(webapp2.RequestHandler):
     operation = self.request.get('operation')
     # Dict of operations to easily map keys to methods.
     operations = {
-        #'insertSubscription': self._insert_subscription,
-        #'deleteSubscription': self._delete_subscription,
-        #'insertItem': self._insert_item,
-        #'insertPaginatedItem': self._insert_paginated_item,
-        #'insertItemWithAction': self._insert_item_with_action,
-        #'insertItemAllUsers': self._insert_item_all_users,
+        'insertSubscription': self._insert_subscription,
+        'deleteSubscription': self._delete_subscription,
         'insertContact': self._insert_contact,
         'deleteContact': self._delete_contact,
-        #'deleteTimelineItem': self._delete_timeline_item
+        'deleteTimelineItem': self._delete_timeline_item,
     }
     if operation in operations:
       message = operations[operation]()
@@ -180,65 +161,6 @@ class MainHandler(webapp2.RequestHandler):
     # self.mirror_service is initialized in util.auth_required.
     self.mirror_service.timeline().insert(body=body, media_body=media).execute()
     return  'A timeline item has been inserted.'
-
-  def _insert_paginated_item(self):
-    """Insert a paginated timeline item."""
-    logging.info('Inserting paginated timeline item')
-    body = {
-        'html': PAGINATED_HTML,
-        'notification': {'level': 'DEFAULT'},
-        'menuItems': [{
-            'action': 'OPEN_URI',
-            'payload': 'https://www.google.com/search?q=cat+maintenance+tips'
-        }]
-    }
-    # self.mirror_service is initialized in util.auth_required.
-    self.mirror_service.timeline().insert(body=body).execute()
-    return  'A timeline item has been inserted.'
-
-  def _insert_item_with_action(self):
-    """Insert a timeline item user can reply to."""
-    logging.info('Inserting timeline item')
-    body = {
-        'creator': {
-            'displayName': 'Python Starter Project',
-            'id': 'PYTHON_STARTER_PROJECT'
-        },
-        'text': 'Tell me what you had for lunch :)',
-        'notification': {'level': 'DEFAULT'},
-        'menuItems': [{'action': 'REPLY'}]
-    }
-    # self.mirror_service is initialized in util.auth_required.
-    self.mirror_service.timeline().insert(body=body).execute()
-    return 'A timeline item with action has been inserted.'
-
-  def _insert_item_all_users(self):
-    """Insert a timeline item to all authorized users."""
-    logging.info('Inserting timeline item to all users')
-    users = Credentials.all()
-    total_users = users.count()
-
-    if total_users > 10:
-      return 'Total user count is %d. Aborting broadcast to save your quota' % (
-          total_users)
-    body = {
-        'text': 'Hello Everyone!',
-        'notification': {'level': 'DEFAULT'}
-    }
-
-    batch_responses = _BatchCallback()
-    batch = BatchHttpRequest(callback=batch_responses.callback)
-    for user in users:
-      creds = StorageByKeyName(
-          Credentials, user.key().name(), 'credentials').get()
-      mirror_service = util.create_service('mirror', 'v1', creds)
-      batch.add(
-          mirror_service.timeline().insert(body=body),
-          request_id=user.key().name())
-
-    batch.execute(httplib2.Http())
-    return 'Successfully sent cards to %d users (%d failed).' % (
-        batch_responses.success, batch_responses.failure)
 
   def _insert_contact(self):
     """Insert a shard Contact."""
