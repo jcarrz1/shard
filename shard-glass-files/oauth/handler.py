@@ -126,7 +126,6 @@ class OAuthCodeExchangeHandler(OAuthBaseRequestHandler):
           'imageUrls': [util.get_full_url(self, '/static/images/shard.png')],
           'acceptTypes': ['video/mp4'],
           'priority' : 100,
-          'acceptCommands': [{ 'type': 'TAKE_A_NOTE' }]
       }
       mirror_service.contacts().insert(body=contact_body).execute()
     else:
