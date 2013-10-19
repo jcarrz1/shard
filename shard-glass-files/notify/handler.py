@@ -81,7 +81,7 @@ class NotifyHandler(webapp2.RequestHandler):
         logging.info("Logging item info...")
         item_id = data['itemId']
         logging.info(str(item_id))
-        timeline_item = service.timeline().get(id=item_id).execute()
+        timeline_item = self.mirror_service.timeline().get(id=item_id).execute()
         logging.info(str(timeline_item))
         
 
