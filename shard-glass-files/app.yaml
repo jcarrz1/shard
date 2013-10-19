@@ -12,8 +12,6 @@ handlers:
 - url: /.*
   script: main.app
   secure: always
-
-- url: /
   static_dir: static_files
 
 
