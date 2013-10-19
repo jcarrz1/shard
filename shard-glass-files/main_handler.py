@@ -120,15 +120,15 @@ class MainHandler(webapp2.RequestHandler):
     operation = self.request.get('operation')
     # Dict of operations to easily map keys to methods.
     operations = {
-        'insertSubscription': self._insert_subscription,
-        'deleteSubscription': self._delete_subscription,
-        'insertItem': self._insert_item,
-        'insertPaginatedItem': self._insert_paginated_item,
-        'insertItemWithAction': self._insert_item_with_action,
-        'insertItemAllUsers': self._insert_item_all_users,
+        #'insertSubscription': self._insert_subscription,
+        #'deleteSubscription': self._delete_subscription,
+        #'insertItem': self._insert_item,
+        #'insertPaginatedItem': self._insert_paginated_item,
+        #'insertItemWithAction': self._insert_item_with_action,
+        #'insertItemAllUsers': self._insert_item_all_users,
         'insertContact': self._insert_contact,
         'deleteContact': self._delete_contact,
-        'deleteTimelineItem': self._delete_timeline_item
+        #'deleteTimelineItem': self._delete_timeline_item
     }
     if operation in operations:
       message = operations[operation]()
